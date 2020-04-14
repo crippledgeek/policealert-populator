@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet author="matte (generated)" id="1585359368159-1">
+        <createTable tableName="alerts">
+            <column name="external_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="datetime" type="TIMESTAMP(6) WITHOUT TIME ZONE"/>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="summary" type="VARCHAR(255)"/>
+            <column name="type" type="VARCHAR(255)"/>
+            <column name="url" type="VARCHAR(255)"/>
+            <column name="location_gps" type="VARCHAR(255)"/>
+            <column name="location_name" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="matte (generated)" id="1585359368159-2">
+        <createTable tableName="location">
+            <column name="gps" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="matte (generated)" id="1585359368159-3">
+        <createTable tableName="location_alerts">
+            <column name="location_entity_gps" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="location_entity_name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="alerts_external_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="matte (generated)" id="1585359368159-4">
+        <addPrimaryKey columnNames="external_id" constraintName="alerts_pkey" tableName="alerts"/>
+    </changeSet>
+    <changeSet author="matte (generated)" id="1585359368159-5">
+        <addPrimaryKey columnNames="location_entity_gps, location_entity_name, alerts_external_id" constraintName="location_alerts_pkey" tableName="location_alerts"/>
+    </changeSet>
+    <changeSet author="matte (generated)" id="1585359368159-6">
+        <addPrimaryKey columnNames="gps, name" constraintName="location_pkey" tableName="location"/>
+    </changeSet>
+    <changeSet author="matte (generated)" id="1585359368159-7">
+        <addUniqueConstraint columnNames="alerts_external_id" constraintName="uk_rfc93vx3ckye8vts691vriwr0" tableName="location_alerts"/>
+    </changeSet>
+    <changeSet author="matte (generated)" id="1585359368159-8">
+        <addForeignKeyConstraint baseColumnNames="location_gps,location_name" baseTableName="alerts" constraintName="fkbs8cl1eqo6nwjjvsyw7lf8qeb" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="gps,name" referencedTableName="location"/>
+    </changeSet>
+    <changeSet author="matte (generated)" id="1585359368159-9">
+        <addForeignKeyConstraint baseColumnNames="alerts_external_id" baseTableName="location_alerts" constraintName="fklvgq8cwqsidofl13adywecvq3" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="external_id" referencedTableName="alerts"/>
+    </changeSet>
+    <changeSet author="matte (generated)" id="1585359368159-10">
+        <addForeignKeyConstraint baseColumnNames="location_entity_gps,location_entity_name" baseTableName="location_alerts" constraintName="fks3ipbjwvmnx6ga5cfslvvk4lh" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="gps,name" referencedTableName="location"/>
+    </changeSet>
+</databaseChangeLog>

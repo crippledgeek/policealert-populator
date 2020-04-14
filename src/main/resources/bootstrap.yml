@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: policealert-populator
+  cloud:
+    config:
+      uri: http://localhost:8888
