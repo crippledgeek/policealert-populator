@@ -4,9 +4,11 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonValue;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import se.disabledsecurity.policealert.populator.entity.converters.AbstractEnumConverter;
+import se.disabledsecurity.policealert.populator.entity.converters.PersistableEnum;
 
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
-public enum EventType {
+public enum EventType implements PersistableEnum<String> {
     FOUND_GOODS("Anträffat gods"),
     FOUND_DEAD("Anträffad död"),
     ALCOHOL_LAW("Alkohollagen"),
@@ -118,5 +120,19 @@ public enum EventType {
     @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
+
+    }
+
+    @Override
+    public String getValue() {
+        return type;
+    }
+
+    public static class Converter extends AbstractEnumConverter<EventType, String> {
+        public Converter() {
+            super(EventType.class);
+        }
     }
 }
+
+
