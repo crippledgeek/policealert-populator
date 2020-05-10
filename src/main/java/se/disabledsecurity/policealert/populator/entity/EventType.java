@@ -1,13 +1,10 @@
 package se.disabledsecurity.policealert.populator.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonValue;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import se.disabledsecurity.policealert.populator.entity.converters.AbstractEnumConverter;
 import se.disabledsecurity.policealert.populator.entity.converters.PersistableEnum;
 
-@JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum EventType implements PersistableEnum<String> {
     FOUND_GOODS("Anträffat gods"),
     FOUND_DEAD("Anträffad död"),
@@ -109,12 +106,6 @@ public enum EventType implements PersistableEnum<String> {
 
     EventType(String type) {
         this.type = type;
-    }
-
-
-    @JsonValue
-    public String getType() {
-        return type;
     }
 
     @Override

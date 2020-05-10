@@ -14,7 +14,7 @@ public class ExternalAlertService implements AlertService {
     private final RestTemplate client;
 
     private final DatabaseService databaseService;
-    private String url;
+    private final String url;
 
 
     public ExternalAlertService(RestTemplate client, DatabaseService databaseService, @Value("${url}") String url){
