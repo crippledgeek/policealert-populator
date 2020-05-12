@@ -11,8 +11,8 @@ import java.util.Objects;
 
 @Service
 public class ExternalAlertService implements AlertService {
-    private final RestTemplate client;
 
+    private final RestTemplate client;
     private final DatabaseService databaseService;
     private final String url;
 

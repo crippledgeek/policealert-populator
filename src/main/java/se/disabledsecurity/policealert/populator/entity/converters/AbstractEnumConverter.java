@@ -1,6 +1,7 @@
 package se.disabledsecurity.policealert.populator.entity.converters;
 
 import javax.persistence.AttributeConverter;
+import java.util.Arrays;
 
 public abstract class AbstractEnumConverter <T extends Enum<T> & PersistableEnum<E>, E> implements AttributeConverter<T, E> {
     private final Class<T> clazz;
@@ -16,14 +17,9 @@ public abstract class AbstractEnumConverter <T extends Enum<T> & PersistableEnum
 
     @Override
     public T convertToEntityAttribute(E dbData) {
-        T[] enumConstants = clazz.getEnumConstants();
-
-        for (T e : enumConstants) {
-            if (e.getValue().equals(dbData)) {
-                return e;
-            }
-        }
-
-        throw new UnsupportedOperationException();
+        return Arrays.stream(clazz.getEnumConstants())
+                .filter(e -> e.getValue().equals(dbData))
+                .findFirst()
+                .orElseThrow(UnsupportedOperationException::new);
     }
 }
